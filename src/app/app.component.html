@@ -1,0 +1,38 @@
+
+<div class="container">
+<header class="modale-header">
+  <h1> Covid Detailed Report India </h1>
+</header>
+<section class="table-responsive">
+  <table class="table table-hover table-bordered">
+    <tr>
+    <th>StateName</th>
+    <th>statecode</th>
+    <th>District</th>
+    </tr>
+    <tr *ngFor="let list of covidlist | keyvalue | paginate:{
+      itemsPerPage:5,
+      currentPage:page,
+      totalItems:totalRows
+    } ">
+      <td> {{ list.key }}</td>
+      <td>
+        <div *ngFor="let stCode of list.value | keyvalue">
+          <p *ngIf="stCode.key=='statecode'">
+            {{ stCode.value }}
+          </p>                
+        </div>
+      </td>
+      <!-- <td>  {{ list.statecode }}</td> -->
+      <td><div *ngFor="let district of list.value | keyvalue">
+        <!--{{ district.value |json }}-->
+        <p *ngIf="district.key=='districtData'">
+          {{ district.value |json }}
+        </p>                
+      </div>
+      </td>
+    </tr>
+  </table>
+  <pagination-controls (pageChange)="page = $event"></pagination-controls>
+</section>
+</div>
